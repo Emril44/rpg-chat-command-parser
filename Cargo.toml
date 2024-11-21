@@ -7,3 +7,13 @@ author = ["Khomenko Maksym"]
 description = "A command line parser for RPG-like chat commands. Processes commands such as '/heal Player1', '/equip sword', or '/party invite Player2', validates their structure, and produces structured output for integration into games."
 
 [dependencies]
+pest = "2.1"
+pest_derive = "2.1"
+
+clap = { version = "4.0", features = ["derive"] }
+
+thiserror = "1.0"
+anyhow = "1.0"
+
+[dev-dependencies]
+assert_matches = "1.5" # Optional for more expressive test assertions

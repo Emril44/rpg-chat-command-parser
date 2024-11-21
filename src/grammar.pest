@@ -1,0 +1,5 @@
+command = { "/" ~ verb ~ (whitespace ~ target)? ~ (whitespace ~ flag)* }
+verb    = { ASCII_ALPHANUMERIC+ }
+target  = { ASCII_ALPHANUMERIC+ }
+flag    = { "--" ~ ASCII_ALPHANUMERIC+ ~ "=" ~ ASCII_ALPHANUMERIC+ }
+whitespace = _{ " " }
