@@ -13,30 +13,38 @@ pub struct ParsedCommand {
 }
 
 pub fn parse_command(input: &str) -> Result<ParsedCommand, String> {
-    let parsed = CommandParser::parse(Rule::command, input)
-        .map_err(|e| format!("Failed to parse command: {}", e))?;
+    let mut parsed = CommandParser::parse(Rule::command, input)
+        .map_err(|e| format!("Failed to parse command: {}", e))?
+        .next()
+        .ok_or("Failed to extract command rule.")?
+        .into_inner();
 
     let mut verb = String::new();
     let mut target = None;
     let mut flags = HashMap::new();
 
     for pair in parsed {
-        println!("Rule: {:?}, Value: {}", pair.as_rule(), pair.as_str());
         match pair.as_rule() {
             Rule::verb => verb = pair.as_str().to_string(),
             Rule::target => target = Some(pair.as_str().to_string()),
             Rule::flag => {
-                let mut inner = pair.into_inner();
-                let key = inner.next().unwrap().as_str().to_string();
-                let value = inner.next().unwrap().as_str().to_string();
+                let mut inner = pair.into_inner(); // Extract nested rules
+                let key = inner.next().ok_or("Missing flag key.")?.as_str().to_string();
+                let value = inner.next().ok_or("Missing flag value.")?.as_str().to_string();
+                println!("Parsing flag: key = {:?}, value = {:?}", key, value);
                 flags.insert(key, value);
             }
             _ => {}
         }
     }
 
+    if verb.is_empty() {
+        return Err("Missing verb in command.".to_string());
+    }
+
     Ok(ParsedCommand { verb, target, flags })
 }
+
 
 #[cfg(test)]
 mod tests {
