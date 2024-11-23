@@ -1,8 +1,9 @@
 command = { "/" ~ verb ~ (whitespace ~ target)? ~ (whitespace ~ flag)* }
 verb    = { ASCII_ALPHANUMERIC+ }
 target  = { ASCII_ALPHANUMERIC+ | quoted_string }
-flag    = { "--" ~ key ~ "=" ~ value }
-key     = { ASCII_ALPHANUMERIC+ }
+flag = { "--" ~ valid_key ~ "=" ~ value | "--" ~ valid_key ~ "=" | bad_flag }
+valid_key = { ASCII_ALPHANUMERIC+ }
 value   = { ASCII_ALPHANUMERIC+ | quoted_string }
 quoted_string = { "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
+bad_flag = { "--" ~ (!ASCII_ALPHANUMERIC ~ ANY)* } // Catch-all for invalid flags
 whitespace = _{ " " }
