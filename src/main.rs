@@ -1,9 +1,9 @@
 use clap::{Arg, Command};
 
 fn main() {
-    let matches = Command::new("CommandParseRPG")
+    let matches = Command::new("rpg-chat-command-parser")
         .version("0.1.0")
-        .author("Your Name")
+        .author("Maksym Khomenko")
         .about("Parses RPG-style chat commands")
         .arg(
             Arg::new("command")

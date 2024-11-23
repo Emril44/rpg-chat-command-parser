@@ -1,7 +1,8 @@
 command = { "/" ~ verb ~ (whitespace ~ target)? ~ (whitespace ~ flag)* }
 verb    = { ASCII_ALPHANUMERIC+ }
-target  = { ASCII_ALPHANUMERIC+ }
-flag = { "--" ~ key ~ "=" ~ value }
-key  = { ASCII_ALPHANUMERIC+ }
-value = { ASCII_ALPHANUMERIC+ }
+target  = { ASCII_ALPHANUMERIC+ | quoted_string }
+flag    = { "--" ~ key ~ "=" ~ value }
+key     = { ASCII_ALPHANUMERIC+ }
+value   = { ASCII_ALPHANUMERIC+ | quoted_string }
+quoted_string = { "\"" ~ (!"\"" ~ ANY)* ~ "\"" }
 whitespace = _{ " " }
