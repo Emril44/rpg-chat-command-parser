@@ -15,7 +15,7 @@ pub struct ParsedCommand {
 }
 
 pub fn parse_command(input: &str) -> Result<ParsedCommand, CommandError> {
-    let mut parsed = CommandParser::parse(Rule::command, input)
+    let parsed = CommandParser::parse(Rule::command, input)
         .map_err(|e| {
             println!("Debug: Parsing failed with error: {:?}", e);
             CommandError::InvalidSyntax
@@ -63,11 +63,11 @@ pub fn parse_command(input: &str) -> Result<ParsedCommand, CommandError> {
 
                 let value_pair = inner.next().ok_or(CommandError::MissingFlagValue)?; // Missing value
                 let value = value_pair.as_str().to_string();
-                
+
                 if value.is_empty() {
                     return Err(CommandError::MissingFlagValue);
                 }
-                
+
                 println!("Debug: Parsed value = {:?}", value);
                 println!("Debug: Parsed key = {:?}, value = {:?}", key, value);
                 flags.insert(key, value);

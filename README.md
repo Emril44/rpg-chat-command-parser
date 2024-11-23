@@ -26,3 +26,4 @@ Parsed commands produce a structured output:
     "power": "high"
   }
 }
+```

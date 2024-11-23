@@ -1,0 +1,3 @@
+/heal Player1
+/cast Fireball --power=high
+/cast heal --high
