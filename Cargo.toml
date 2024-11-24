@@ -12,6 +12,19 @@ keywords = ["rpg", "parser", "chat-commands"]
 categories = ["command-line-utilities", "parsing"]
 edition = "2021"
 
+# List of files and patterns to exclude from the final package
+exclude = [
+    "*.png",                # Exclude image files
+    "Makefile",             # Exclude Makefile
+    "*.json",               # Exclude generated JSON files
+    "*.bak",                # Exclude backup files
+    "Cargo.toml.orig",      # Exclude old Cargo files
+    "/target/",             # Exclude build artifacts
+    "/.git/",               # Exclude Git metadata
+    "/diagram/"             # Exclude the diagram folder unless needed
+]
+
+
 [package.metadata.docs.rs]
 all-features = true
 
