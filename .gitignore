@@ -1,4 +1,8 @@
-/target
-Cargo.toml.orig
 *.png
 Makefile
+*.json
+*.bak
+Cargo.toml.orig
+/target/
+/diagram/
+/.gitignore
