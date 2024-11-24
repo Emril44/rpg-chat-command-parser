@@ -7,7 +7,6 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Emril44/rpg-chat-command-parser"
 homepage = "https://github.com/Emril44/rpg-chat-command-parser"
-documentation = "file:///C:/Users/Max/rust-learning-path/rpg-chat-command-parser/target/doc/rpg_chat_command_parser/index.html"
 keywords = ["rpg", "parser", "chat-commands"]
 categories = ["command-line-utilities", "parsing"]
 edition = "2021"
