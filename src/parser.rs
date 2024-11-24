@@ -1,18 +1,52 @@
+//! # Command Parser
+//!
+//! This module defines the core functionality for parsing RPG-style chat commands. It uses the
+//! [Pest](https://docs.rs/pest) parser library for grammar-based parsing.
+//!
+//! ## Grammar
+//! The grammar is defined in the grammar.pest file and supports the following:
+//! - **Verbs**: The primary action of the command (e.g., /cast, /attack).
+//! - **Targets**: Optional targets for the action (e.g., /cast fireball).
+//! - **Flags**: Key-value pairs for additional parameters (e.g., --power=high).
+//!
+//! ## Example
+//! use rpg_chat_command_parser::parse_command;
+//!
+//! let input = "/cast fireball --power=high";
+//! let parsed = parse_command(input).unwrap();
+//! assert_eq!(parsed.verb, "cast");
+//! assert_eq!(parsed.target, Some("fireball".to_string()));
+//! assert_eq!(parsed.flags.get("power"), Some(&"high".to_string()));
+//!
 use pest::Parser;
 use std::collections::HashMap;
 
 use crate::CommandError;
-
+/// Pest parser definition for command parsing.
 #[derive(pest_derive::Parser)]
 #[grammar = "grammar.pest"] // Tells Pest where the grammar file is
 struct CommandParser;
-
+/// Represents a parsed command with its components.
 #[derive(Debug, PartialEq)]
 pub struct ParsedCommand {
+    /// The main verb of the command (e.g., "cast").
     pub verb: String,
+    /// The optional target of the command (e.g., "fireball").
     pub target: Option<String>,
+    /// A map of flag key-value pairs (e.g., --power=high).
     pub flags: HashMap<String, String>,
 }
+/// Parses an input string into a ParsedCommand.
+///
+/// # Errors
+/// Returns a CommandError if the input does not match the grammar.
+///
+/// # Example
+/// let input = "/cast fireball --power=high";
+/// let parsed = parse_command(input).unwrap();
+/// assert_eq!(parsed.verb, "cast");
+/// assert_eq!(parsed.target, Some("fireball".to_string()));
+/// assert_eq!(parsed.flags.get("power"), Some(&"high".to_string()));
 
 pub fn parse_command(input: &str) -> Result<ParsedCommand, CommandError> {
     let parsed = CommandParser::parse(Rule::command, input)

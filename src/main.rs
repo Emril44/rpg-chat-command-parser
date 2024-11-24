@@ -2,7 +2,9 @@ use clap::{Arg, Command};
 use rpg_chat_command_parser::parse_command;
 use std::fs;
 
+/// Main entry point for the RPG Chat Command Parser binary.
 fn main() {
+    // CLI argument parsing
     let matches = Command::new("rpg-chat-command-parser")
         .version("0.1.0")
         .author("Maksym Khomenko")
@@ -21,12 +23,10 @@ fn main() {
                         .required(true),
                 ),
         )
-        .subcommand(
-            Command::new("info")
-                .about("Display additional help information")
-        )
+        .subcommand(Command::new("info").about("Display additional help information"))
         .get_matches();
 
+    // Match the subcommand and execute the corresponding logic
     match matches.subcommand() {
         Some(("parse", sub_m)) => {
             let command = sub_m.get_one::<String>("command").unwrap();
@@ -55,7 +55,7 @@ fn main() {
             println!("  rpg-chat-command-parser parse <command>");
             println!("  rpg-chat-command-parser file <file>");
             println!("  rpg-chat-command-parser info");
-            println!("\nFor detailed documentation, visit: https://github.com/your-repo-url");
+            println!("\nFor detailed documentation, visit: https://github.com/Emril44/rpg-chat-command-parser");
         }
         _ => {
             println!("Use --info for available commands.");
