@@ -1,0 +1,11 @@
+[package]
+exclude = [
+    "*.png",                # Exclude images unless explicitly required
+    "Makefile",             # Exclude Makefile if not relevant
+    "*.json",               # Exclude generated JSON files
+    "*.bak",                # Exclude backup files
+    "Cargo.toml.orig",      # Exclude old Cargo files
+    "/target/",             # Exclude build artifacts
+    "/.git/",               # Exclude Git metadata
+    "/diagram/"             # Exclude the entire diagram folder unless needed
+]
